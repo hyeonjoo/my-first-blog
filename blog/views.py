@@ -39,3 +39,13 @@ def post_edit(request, pk):
 def post_draft_list(request):
     posts = Post.objects.filter(published_date__isnull=True).order_by('created_date')
     return render(request, 'blog/post_draft_list.html', {'posts': posts})
+
+def publish(post):
+    post.published_date = timezone.now()
+    post.save()
+
+def post_publish(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method=='POST':
+        post.publish()
+    return redirect('post_detail', pk=pk)
