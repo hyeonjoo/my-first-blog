@@ -18,6 +18,10 @@
                 <button type="submit" class="post btn btn-info" name="publish">Publish</button>
             </form>
         {% endif %}
+        <form method="POST" action="{% url 'post_remove' pk=post.pk %}" class="post-form">{% csrf_token %}
+            <button type="submit" class="post btn btn-danger" name="delete">Delete
+            </button>
+        </form>
         <h2>{{ post.title }}</h2>
         <p>{{ post.text|linebreaksbr }}</p>
     </article>
